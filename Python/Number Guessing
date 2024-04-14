@@ -1,0 +1,59 @@
+import random
+
+
+def number_checker(guessed_number):
+    if guessed_number > number:
+        print("The number is lower!")
+    elif guessed_number < number:
+        print("The number is higher!")
+
+
+print("Hello User, what's your name?")
+user_name = input()
+
+print("Hello " + user_name + ". Which game do you wish to play?")
+print("1 = You're the one guessing the number\n2 = The System is the one guessing the number")
+game_of_choice = int(input())
+
+number = random.randint(1, 100)
+
+if game_of_choice == 1:
+    print("You've chosen to be the one guessing")
+    print("I have chosen a number between 1 and 100. Try to guess it!!")
+    guessed_number = int(input("Please enter a number -> "))
+
+    while guessed_number != number:
+        number_checker(guessed_number)
+        print("You guessed", guessed_number, "\nGuess again!")
+        guessed_number = int(input())
+
+    print("Correct!!")
+
+if game_of_choice == 2:
+    print("You've chosen for the System to guess!!\nNow.. Think of a number between 1 and 100")
+
+    upper_bound = 100
+    lower_bound = 1
+    last_number = random.randint(lower_bound, upper_bound)
+    print("Are you ready? I'm guessing it's", last_number, "!")
+    print("Was I correct?\nYes / Higher / Lower")
+    input()
+
+    was_the_guess_correct = input()
+    print("You said", was_the_guess_correct)
+
+    while was_the_guess_correct.lower() != "yes":
+        print("Hmm... What about", last_number)
+        was_the_guess_correct = input()
+
+        if was_the_guess_correct.lower() == "higher":
+            lower_bound = last_number + 1
+        elif was_the_guess_correct.lower() == "lower":
+            upper_bound = last_number - 1
+
+        if lower_bound > upper_bound:
+            print("Wrong input!!! Please restart!!!")
+
+        last_number = random.randint(lower_bound, upper_bound)
+
+print("Woohoo!! I Won!!")
