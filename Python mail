@@ -1,0 +1,30 @@
+Simport smtplib
+from email.mime.text import MIMEText
+
+message_content = """
+Hello,
+
+This is the content of my email.
+
+Best regards,
+Your Name
+"""
+
+msg = MIMEText(message_content)
+
+msg['Subject'] = 'Tester'
+msg['From'] = 'example1@gmail.com'
+msg['To'] = 'example2@gmail.com'
+
+
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+
+sender_email = 'weatherbot69@gmail.com'
+password = 'ildt qizq ivvu ctoi'
+
+with smtplib.SMTP(smtp_server, smtp_port) as server:
+    server.starttls()
+    server.login(sender_email, password)
+    server.sendmail(sender_email, ['example2@gmail.com'], msg.as_string())
+print("Message sent")
