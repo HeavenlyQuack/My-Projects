@@ -1,0 +1,21 @@
+//Program : Hello Name
+//Purpose : Ask user for name, thereafter use it in output (Essential Computing 2023 Assignment)
+//Author: Kacper Leon Puzniak
+// Date: 2023-09-28
+
+// We import the scanner, so we can use it in the code
+import java.util.Scanner;
+
+public class HelloName {
+    public static void main(String[] args) {
+        //Create a variable called - name + make the code look at the system input, aka the keyboard
+        String name;
+        Scanner in = new Scanner(System.in);
+        //Print a text. A question about the users name
+        System.out.print("Hello, what is your name? ");
+        //Use the name input, in the code output
+        name = in.nextLine();
+        System.out.println("Your name is " + name + "?");
+        System.out.print("Well then, have a great day, " +name);
+    }
+}
