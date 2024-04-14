@@ -1,0 +1,74 @@
+/* Program : Brute Force Attack
+Purpose : Step 1: Generate a 4-digit code, then brute force the code (Essential Computing 2023 Assignment)
+Author: Kacper Leon Puzniak
+Date: 05/10/2023 */
+
+//We import the necessary classes
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+    static Integer[] code = new  Integer[4]; //We make the code static, so we can use it later in the main method
+    static Integer[] codeBreak = new Integer[4]; // We make the code breaking code, so we can use it later in the main method
+    public static void codeGenerator(){ // The code Generator - generates a code via an array
+        Random rand = new Random();
+
+        code[0] = rand.nextInt(10);
+        code[1] = rand.nextInt(10);
+        code[2] = rand.nextInt(10);
+        code[3] = rand.nextInt(10);
+        System.out.println(Arrays.toString(code)); // Check what was generated
+    }
+
+    public static void codeBreaker(){ //Generate the code breaking
+        codeBreak[0] = 0;
+        codeBreak[1] = 0;
+        codeBreak[2] = 0;
+        codeBreak[3] = 0;
+        System.out.println(Arrays.toString(codeBreak)); // Check what was generated
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        codeGenerator(); //Generate the code
+
+        System.out.println("Hello and welcome!"); //Welcome the user
+        System.out.println("Do you wish to initiate the CODE BREAKING ??");
+        System.out.println("YES / NO");
+
+        String line; //Scan the input from the user
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+
+        if (line.equalsIgnoreCase("Yes")){ //Initiate code breaking
+            System.out.println("Initiating CODE BREAKING");
+
+            int timer = 6; //Timer before code breaking starts
+            while (timer>0){
+                System.out.println(timer-1);
+                timer --;
+                Thread.sleep(1000);
+            }
+            System.out.println("CODE BREAKING INITIATED");
+            System.out.println("THE CODE SHALL BE BROKEN!");
+            Thread.sleep(2000);
+
+            codeBreaker(); // We start trying to break the code
+            while (!Arrays.equals(codeBreak, code)) { //As long as code != the codeBreak, the code will loop this
+                codeBreak[3]++; //the default +1 to 3rd element of the array [1,2,3,this one]
+                for (int i = 3; i >= 0; i--) { // we start with the 3rd aka 4th, and go down to 2nd then 1st then zeroth
+                    if (codeBreak[i] > 9) { // if the element tries to go over 9, it will be zeroed
+                        codeBreak[i] = 0;
+                        if (i > 0) { // This line ensures that when an element gets zeroed, the next element will receive a +1, therefore the 10th carries over to the next element
+                            codeBreak[i - 1]++;
+                        }
+                    }
+                }
+                System.out.println(Arrays.toString(codeBreak)); //Print the current guess
+            }
+            System.out.println("THE CODE HAS BEEN BROKEN!"); //The code has been successfully broken
+        } else if (line.equalsIgnoreCase("No")){ // Exit
+            System.out.println("Good luck then :)");
+        }
+    }
+}
