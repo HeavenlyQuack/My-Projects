@@ -1,0 +1,97 @@
+// Animal interface
+interface Animal {
+    String getName();
+    int getLegs();
+}
+
+// Human class
+class Human implements Animal {
+    private String name;
+
+    public Human(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLegs() {
+        return 2;
+    }
+}
+
+// Horse class
+class Horse implements Animal {
+    private String name;
+
+    public Horse(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLegs() {
+        return 4;
+    }
+}
+
+// Fish class
+class Fish implements Animal {
+    private String name;
+
+    public Fish(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLegs() {
+        return 0; // Assuming fish have no legs
+    }
+}
+
+// Insect abstract class
+abstract class Insect implements Animal {
+    private String name;
+
+    public Insect(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    // This method is common to all insects, so it's implemented here.
+    public int getLegs() {
+        return 6;
+    }
+}
+
+// Ant class
+class Ant extends Insect {
+    public Ant(String name) {
+        super(name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Human human = new Human("John");
+        System.out.println("Human named " + human.getName() + " has " + human.getLegs() + " legs.");
+
+        Horse horse = new Horse("Black Beauty");
+        System.out.println("Horse named " + horse.getName() + " has " + horse.getLegs() + " legs.");
+
+        Fish fish = new Fish("Nemo");
+        System.out.println("Fish named " + fish.getName() + " has " + fish.getLegs() + " legs.");
+
+        Ant ant = new Ant("Worker Ant");
+        System.out.println("Ant named " + ant.getName() + " has " + ant.getLegs() + " legs.");
+    }
+}
