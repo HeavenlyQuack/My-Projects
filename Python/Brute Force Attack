@@ -1,0 +1,56 @@
+# Program : Brute Force Attack
+# Purpose : Generate a 4-digit code, then brute force the code
+# Author: Kacper Leon Puzniak
+
+import random
+import time
+
+code = [0] * 4  # Initialize the code array
+codeBreak = [0] * 4  # Initialize the code breaking array
+
+def code_generator():
+    global code
+    code = [random.randint(0, 9) for _ in range(4)]
+    print(code)  # Check what was generated
+
+def code_breaker():
+    global codeBreak
+    codeBreak = [0, 0, 0, 0]
+    print(codeBreak)  # Check what was generated
+
+def main():
+    code_generator()  # Generate the code
+
+    print("Hello and welcome!")  # Welcome the user
+    print("Do you wish to initiate the CODE BREAKING ??")
+    print("YES / NO")
+
+    line = input().strip().lower()  # Scan the input from the user
+
+    if line == "yes":  # Initiate code breaking
+        print("Initiating CODE BREAKING")
+
+        timer = 6  # Timer before code breaking starts
+        while timer > 0:
+            print(timer - 1)
+            timer -= 1
+            time.sleep(1)
+        print("CODE BREAKING INITIATED")
+        print("THE CODE SHALL BE BROKEN!")
+        time.sleep(2)
+
+        code_breaker()  # We start trying to break the code
+        while codeBreak != code:  # As long as code != the codeBreak, the code will loop this
+            codeBreak[3] += 1  # the default +1 to 3rd element of the array [1,2,3,this one]
+            for i in range(3, -1, -1):  # we start with the 3rd aka 4th, and go down to 2nd then 1st then zeroth
+                if codeBreak[i] > 9:  # if the element tries to go over 9, it will be zeroed
+                    codeBreak[i] = 0
+                    if i > 0:  # This line ensures that when an element gets zeroed, the next element will receive a +1, therefore the 10th carries over to the next element
+                        codeBreak[i - 1] += 1
+            print(codeBreak)  # Print the current guess
+        print("THE CODE HAS BEEN BROKEN!")  # The code has been successfully broken
+    elif line == "no":  # Exit
+        print("Good luck then :)")
+
+if __name__ == "__main__":
+    main()
