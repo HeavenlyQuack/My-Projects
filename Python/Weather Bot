@@ -1,0 +1,41 @@
+import requests
+import smtplib
+from email.mime.text import MIMEText
+
+latitude = 55.67
+longitude = 12.56
+exclude = "alerts,daily,hourly,minutely"
+api_key = "Weather_App_Token"
+URL = f"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude={exclude}&appid={api_key}&units=metric"
+response = requests.get(URL)
+
+weather = response.json()
+tempo = int(weather['current']['temp'])
+
+message_content = f"""
+Hello,
+
+The current temperature is {tempo} celcius
+
+Best regards,
+BotBot
+"""
+
+msg = MIMEText(message_content)
+
+msg['Subject'] = 'Tester'
+msg['From'] = 'weatherbot@gmail.com'
+msg['To'] = 'example@gamil.com'
+
+
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+
+sender_email = 'weatherbot69@gmail.com'
+password = 'ildt qizq ivvu ctoi'
+
+with smtplib.SMTP(smtp_server, smtp_port) as server:
+    server.starttls()
+    server.login(sender_email, password)
+    server.sendmail(sender_email, ['example@gamil.com'], msg.as_string())
+print("Message sent")
