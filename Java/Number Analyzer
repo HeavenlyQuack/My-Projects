@@ -1,0 +1,37 @@
+//Program : Number Analyzer
+//Purpose : Analyze whether a number is even/odd and positive/negative (Essential Computing 2023 Assignment)
+//Author: Kacper Leon Puzniak
+// Date: 2023-09-28
+
+//// We import the scanner, so we can use it in the code
+import java.util.Scanner;
+
+//Create a variable called - number + make the code look at the system input, aka the keyboard
+public class Main {
+    //------------------------------------------------------------------------------------------------------------------
+    //We create a numberChecker, a method that is checking the state of the current number and
+    // tells the user whether it is positive or negative, odd or even
+    public static void numberChecker(int number) {
+        if (number > 0) {
+            System.out.println ( "That number is positive" ) ;
+        } else if (number < 0) {
+            System.out.println ( "That number is negative" ) ;
+        } else {
+            System.out.println ( "That number is zero" ) ;
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        if (number % 2 == 0) {
+            System.out.println("That number is even ");
+        }else {
+            System.out.println("That number is odd ");
+        }
+    }//-------------------------------------------------------------------------------------------------------------
+    // This is the main method that grabs the input and throws it into the numberChecker
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int number;
+        System.out.print("Please enter a number -> ");
+        number = in.nextInt();
+        numberChecker(number);
+    }//-----------------------------------------------------------------------------------------------------------------
+}
