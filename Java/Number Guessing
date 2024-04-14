@@ -1,0 +1,78 @@
+# Program : Number Guessing
+# Author: Kacper Leon Puzniak
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumberGame {
+    static Random random = new Random();
+    static int number = random.nextInt(100) + 1;
+
+    public static void numberChecker(int guessedNumber) {
+        if (guessedNumber > number) {
+            System.out.println("The number is lower!");
+        } else if (guessedNumber < number) {
+            System.out.println("The number is higher!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Hello User, what's your name?");
+        String userName = scanner.nextLine();
+
+        System.out.println("Hello " + userName + ". Which game do you wish to play?");
+        System.out.println("1 = You're the one guessing the number\n2 = The System is the one guessing the number");
+        int gameOfChoice = scanner.nextInt();
+
+        if (gameOfChoice == 1) {
+            System.out.println("You've chosen to be the one guessing");
+            System.out.println("I have chosen a number between 1 and 100. Try to guess it!!");
+            System.out.print("Please enter a number -> ");
+            int guessedNumber = scanner.nextInt();
+
+            while (guessedNumber != number) {
+                numberChecker(guessedNumber);
+                System.out.println("You guessed " + guessedNumber + "\nGuess again!");
+                guessedNumber = scanner.nextInt();
+            }
+
+            System.out.println("Correct!!");
+        }
+
+        if (gameOfChoice == 2) {
+            System.out.println("You've chosen for the System to guess!!\nNow.. Think of a number between 1 and 100");
+
+            int upperBound = 100;
+            int lowerBound = 1;
+            int lastNumber = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+            System.out.println("Are you ready? I'm guessing it's " + lastNumber + " !");
+            System.out.println("Was I correct?\nYes / Higher / Lower");
+            scanner.nextLine(); // Consume the newline character after nextInt()
+
+            String wasTheGuessCorrect = scanner.nextLine();
+            System.out.println("You said " + wasTheGuessCorrect);
+
+            while (!wasTheGuessCorrect.equalsIgnoreCase("yes")) {
+                System.out.println("Hmm... What about " + lastNumber);
+                wasTheGuessCorrect = scanner.nextLine();
+
+                if (wasTheGuessCorrect.equalsIgnoreCase("higher")) {
+                    lowerBound = lastNumber + 1;
+                } else if (wasTheGuessCorrect.equalsIgnoreCase("lower")) {
+                    upperBound = lastNumber - 1;
+                }
+
+                if (lowerBound > upperBound) {
+                    System.out.println("Wrong input!!! Please restart!!!");
+                    break;
+                }
+
+                lastNumber = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+            }
+        }
+
+        System.out.println("Woohoo!! I Won!!");
+    }
+}
