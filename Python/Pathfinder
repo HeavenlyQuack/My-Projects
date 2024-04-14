@@ -1,0 +1,47 @@
+# Program : Pathfinder
+# Author: Kacper Leon Puzniak
+import random
+
+class Pathfinder:
+    def __init__(self, gridSize):
+        self.gridSize = gridSize
+        self.grid = [[0] * gridSize for _ in range(gridSize)]  # Create a 2D grid filled with zeros
+        self.initialize_grid()  # Call a method to initialize the grid with blocked and unblocked spaces
+
+    def initialize_grid(self):
+        for i in range(self.gridSize):
+            for j in range(self.gridSize):
+                # Randomly assign values to grid cells: 1 represents blocked, 0 represents unblocked.
+                self.grid[i][j] = 1 if random.random() <= 0.25 else 0
+
+    def print_grid(self):
+        # Print the grid representation with symbols: "□" for unblocked and "X" for blocked.
+        for row in self.grid:
+            print(" ".join("□" if cell == 0 else "X" for cell in row))
+
+    def is_route_available(self):
+        visited = [[False] * self.gridSize for _ in range(self.gridSize)]
+        queue = [(0, 0)]
+        visited[0][0] = True
+
+        while queue:
+            x, y = queue.pop(0)
+            if (x, y) == (self.gridSize - 1, self.gridSize - 1):
+                return True
+
+            for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < self.gridSize and 0 <= ny < self.gridSize and not visited[nx][ny] and self.grid[nx][ny] == 0:
+                    visited[nx][ny] = True
+                    queue.append((nx, ny))
+
+        return False
+
+def main():
+    pathfinder = Pathfinder(10)  # Create an instance of the Pathfinder class with a grid size of 10x10.
+    print("Grid:")
+    pathfinder.print_grid()  # Call a method to print the grid.
+    print("Route available:", pathfinder.is_route_available())
+
+if __name__ == "__main__":
+    main()
