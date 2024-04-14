@@ -1,0 +1,19 @@
+while True:
+    print("Please enter a number ->")
+    try:
+        number = int(input())
+        break  # Exit the loop if the input is successfully converted to an integer
+    except ValueError:
+        print("That is not a number, try again")
+
+if number > 0:
+    print("That number is Positive")
+elif number < 0:
+    print("That number is Negative")
+else:
+    print("That number is Zero")
+
+if number % 2 == 0:
+    print("That number is even")
+else:
+    print("That number is odd")
