@@ -1,0 +1,47 @@
+/* Program : Hangman - Game
+Purpose : (Essential Computing 2023 Assignment)
+Author: Kacper Leon Puzniak
+Date: 05/10/2023 */
+
+//We import all the needed methods
+import java.util.Scanner;
+
+public class Hangman {
+    public static void main(String[] args) {
+        String secretWord = "hangman"; // Change this to your desired secret word
+        int maxWrongGuesses = 8;
+        int wrongGuesses = 0;
+        StringBuilder guessedWord = new StringBuilder(secretWord.replaceAll(".", ".")); // Initialize with dots
+
+        System.out.println("Welcome to Hangman!");
+        Scanner scanner = new Scanner(System.in);
+
+        while (wrongGuesses < maxWrongGuesses) {
+            System.out.println("Secret word: " + guessedWord.toString());
+            System.out.println("You have " + (maxWrongGuesses - wrongGuesses) + " guesses left.");
+            System.out.print("Guess a letter: ");
+            String guess = scanner.next();
+
+            if (guess.length() != 1 || !Character.isLetter(guess.charAt(0))) {
+                System.out.println("Please enter a single letter.");
+            }
+
+            if (secretWord.contains(guess)) {
+                for (int i = 0; i < secretWord.length(); i++) {
+                    if (secretWord.charAt(i) == guess.charAt(0)) {
+                        guessedWord.setCharAt(i, guess.charAt(0));
+                    }
+                }
+            } else {
+                System.out.println("Wrong guess. Try again.");
+                wrongGuesses++;
+            }
+            if (guessedWord.toString().equals(secretWord)) {
+                System.out.println("Congratulations! You've guessed the word: " + secretWord);
+            }
+        }
+        if (wrongGuesses == maxWrongGuesses) {
+            System.out.println("Game over! You've run out of guesses. The secret word was: " + secretWord);
+        }
+    }
+}
